@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>CLASSNOE MESTO</title>
+    <link rel="preconnect" href="https://fonts.cdnfonts.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/sf-pro-display" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@200;300;400&display=swap"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Кнопка-бургер -->
+    <button
+      class="site-menu-toggle"
+      type="button"
+      data-menu-toggle
+      aria-expanded="false"
+      aria-controls="site-menu"
+      aria-label="Open menu"
+    >
+      <span class="site-menu-toggle__icon" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+    </button>
+
+    <!-- Модальное меню -->
+    <div
+      id="site-menu"
+      class="site-menu"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Site navigation"
+      aria-hidden="true"
+      hidden
+    >
+      <div class="site-menu__backdrop" data-menu-close></div>
+      <div class="site-menu__container" role="document" tabindex="-1" data-menu-focus>
+        <nav class="site-menu__nav" aria-label="Primary">
+          <ul class="site-menu__list" role="list">
+            <li class="site-menu__item"><a href="#content" class="site-menu__link" data-menu-link>Branding</a></li>
+            <li class="site-menu__item"><a href="#content" class="site-menu__link" data-menu-link>Packaging</a></li>
+            <li class="site-menu__item"><a href="#content" class="site-menu__link" data-menu-link>Social Media</a></li>
+            <li class="site-menu__item"><a href="#content" class="site-menu__link" data-menu-link>Templates</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <main class="slides">
+      <section class="slide">
+        <p>CLASSNOE MESTO</p>
+      </section>
+      <section class="slide">
+        <p>
+          Мы создали <em>CLASSNOE MESTO</em>, чтобы изменить парадокс.<br /><br />
+          Через культуру, спорт, дизайн и сообщество мы создаём пространство, где:<br />
+          здоровье становится источником вдохновения,<br />
+          а сила превращается в образ жизни.<br /><br />
+          Мы — творческий коллектив:<br />
+          дизайнеры, архитекторы, музыканты, режиссёры, писатели, инженеры и художники.<br /><br />
+          Возможно, вы уже встречали нас в проектах, которые мы создавали раньше.<br /><br />
+          <em>CLASSNOE MESTO</em> — это место, где энергия тела рождает энергию идей.
+        </p>
+      </section>
+    </main>
+    <div class="swipe-indicator" aria-hidden="true">
+      <span class="swipe-indicator__chevron"></span>
+      <span class="swipe-indicator__chevron"></span>
+    </div>
+    <script>
+      (function () {
+        const menu = document.getElementById('site-menu');
+        const toggleBtn = document.querySelector('[data-menu-toggle]');
+        const backdrop = menu?.querySelector('[data-menu-close]');
+        const focusHost = menu?.querySelector('[data-menu-focus]');
+        const links = [...(menu?.querySelectorAll('[data-menu-link]') || [])];
+        const OPEN_CLASS = 'has-menu-open';
+        const CLOSING_CLASS = 'is-menu-closing';
+        const CLOSE_ANIM_MS = 500;
+
+        if (!menu || !toggleBtn) return;
+
+        let lastFocusedEl = null;
+
+        function setAria(isOpen) {
+          toggleBtn.setAttribute('aria-expanded', String(isOpen));
+          menu.setAttribute('aria-hidden', String(!isOpen));
+          if (!isOpen) menu.setAttribute('hidden', '');
+          else menu.removeAttribute('hidden');
+        }
+
+        function trapFocus(e) {
+          if (e.key !== 'Tab') return;
+          const focusables = menu.querySelectorAll(
+            'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+          );
+          if (!focusables.length) return;
+          const first = focusables[0];
+          const last = focusables[focusables.length - 1];
+          if (e.shiftKey && document.activeElement === first) {
+            last.focus();
+            e.preventDefault();
+          } else if (!e.shiftKey && document.activeElement === last) {
+            first.focus();
+            e.preventDefault();
+          }
+        }
+
+        function onKeydown(e) {
+          if (e.key === 'Escape') {
+            closeMenu();
+          } else if (e.key === 'Tab') {
+            trapFocus(e);
+          }
+        }
+
+        function openMenu() {
+          lastFocusedEl = document.activeElement;
+          document.body.classList.add(OPEN_CLASS);
+          menu.classList.add('is-open');
+          setAria(true);
+          document.addEventListener('keydown', onKeydown);
+          (focusHost || menu).focus({ preventScroll: true });
+        }
+
+        function closeMenu() {
+          document.body.classList.add(CLOSING_CLASS);
+          document.body.classList.remove(OPEN_CLASS);
+          setAria(false);
+          document.removeEventListener('keydown', onKeydown);
+          window.setTimeout(() => {
+            document.body.classList.remove(CLOSING_CLASS);
+            menu.classList.remove('is-open');
+            if (lastFocusedEl && lastFocusedEl.focus) {
+              lastFocusedEl.focus({ preventScroll: true });
+            }
+          }, CLOSE_ANIM_MS);
+        }
+
+        toggleBtn.addEventListener('click', () => {
+          const isOpen = document.body.classList.contains(OPEN_CLASS);
+          isOpen ? closeMenu() : openMenu();
+        });
+
+        backdrop?.addEventListener('click', closeMenu);
+        links.forEach((a) => a.addEventListener('click', closeMenu));
+
+        menu.addEventListener('click', (e) => {
+          const container = menu.querySelector('.site-menu__container');
+          if (container && !container.contains(e.target)) closeMenu();
+        });
+      })();
+    </script>
+    <script src="script.js"></script>
+  </body>
+</html>

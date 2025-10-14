@@ -15,6 +15,9 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <!-- Aura background -->
+    <canvas id="aura-bg" aria-hidden="true"></canvas>
+
     <!-- Кнопка-бургер -->
     <button
       class="site-menu-toggle"
@@ -54,7 +57,7 @@
       </div>
     </div>
 
-    <main class="slides">
+    <main class="slides" id="content">
       <section class="slide">
         <p>CLASSNOE MESTO</p>
       </section>
@@ -75,6 +78,14 @@
           дизайнеры, архитекторы, музыканты, режиссёры, писатели, инженеры и художники.<br /><br />
           Возможно, вы уже встречали нас в проектах, которые мы создавали раньше.<br /><br />
           <em>CLASSNOE MESTO</em> — это место, где энергия тела рождает энергию идей.
+        </p>
+      </section>
+
+      <!-- CTA -->
+      <section class="slide slide--cta">
+        <p>
+          <span class="cta-kicker">Готовы войти?</span><br />
+          <a class="btn-cta" href="#content">Enter the space</a>
         </p>
       </section>
     </main>

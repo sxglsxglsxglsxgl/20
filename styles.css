@@ -114,6 +114,7 @@ body.is-menu-closing {
       (2 * var(--slides-padding-block, 0px))
   );
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -131,9 +132,9 @@ body.is-menu-closing {
   perspective: 1200px;
 }
 
-/* Немного отступа снизу для комфорта */
+/* Немного отступа снизу для комфорта (см. адаптивные медиа-запросы ниже) */
 .slide p {
-  padding-bottom: 20vh;
+  padding-bottom: 0;
 }
 
 .slide p {
@@ -516,6 +517,7 @@ body.is-menu-closing .backdrop {
   .slide p {
     font-size: clamp(0.75rem, 3vw, 1rem);
     line-height: 1.4;
+    padding-bottom: 12vh;
   }
 }
 
@@ -523,5 +525,6 @@ body.is-menu-closing .backdrop {
 @media (max-width: 400px) and (max-height: 650px) {
   .slide p {
     font-size: 0.72rem;
+    padding-bottom: 14vh;
   }
 }

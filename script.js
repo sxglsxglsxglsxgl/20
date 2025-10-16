@@ -8,8 +8,6 @@ const ready = (fn) => {
 
 ready(() => {
   const slides = Array.from(document.querySelectorAll(".slide"));
-  const swipeIndicator = document.querySelector(".swipe-indicator");
-
   if (!slides.length) return;
 
   const observer = new IntersectionObserver(
@@ -43,29 +41,6 @@ ready(() => {
   // Ensure the first slide is active on load for browsers that do not trigger IntersectionObserver immediately.
   slides[0].classList.add("is-active");
 
-  if (swipeIndicator && slides.length > 1) {
-    const firstSlide = slides[0];
-    let swipeDismissed = false;
-
-    const swipeObserver = new IntersectionObserver(
-      (entries, observer) => {
-        entries.forEach((entry) => {
-          if (entry.target !== firstSlide || swipeDismissed) return;
-
-          if (!entry.isIntersecting && entry.boundingClientRect.top < 0) {
-            swipeIndicator.classList.add("is-hidden");
-            swipeDismissed = true;
-            observer.disconnect();
-          } else {
-            swipeIndicator.classList.remove("is-hidden");
-          }
-        });
-      },
-      { threshold: [0.1, 0.35] }
-    );
-
-    swipeObserver.observe(firstSlide);
-  }
 });
 
 // === Line-by-Line wrapper ===

@@ -53,60 +53,6 @@ body.is-menu-closing {
   touch-action: pan-y;
 }
 
-.swipe-indicator {
-  position: fixed;
-  left: 50%;
-  bottom: calc(var(--safe-bottom) + clamp(28px, 8vh, 72px));
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: clamp(4px, 0.8vh, 10px);
-  pointer-events: none;
-  color: rgba(0, 0, 0, 0.56);
-  opacity: 0.9;
-  transition: opacity 360ms ease, visibility 360ms ease;
-  z-index: 20;
-}
-
-.swipe-indicator.is-hidden {
-  opacity: 0;
-  visibility: hidden;
-}
-
-.swipe-indicator__chevron {
-  width: clamp(22px, 3vw, 32px);
-  height: clamp(22px, 3vw, 32px);
-  border-right: 2px solid currentColor;
-  border-bottom: 2px solid currentColor;
-  transform: rotate(45deg);
-  opacity: 0;
-  animation: swipe-indicator-pulse 1.9s infinite;
-}
-
-.swipe-indicator__chevron:nth-child(2) {
-  margin-top: clamp(-14px, -2vh, -8px);
-  animation-delay: 0.24s;
-}
-
-@keyframes swipe-indicator-pulse {
-  0% {
-    opacity: 0;
-    transform: translateY(-10px) rotate(45deg);
-  }
-  25% {
-    opacity: 0.85;
-  }
-  55% {
-    opacity: 0.95;
-    transform: translateY(0) rotate(45deg);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(16px) rotate(45deg);
-  }
-}
-
 .slide {
   position: relative;
   min-height: calc(

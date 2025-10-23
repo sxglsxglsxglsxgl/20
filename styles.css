@@ -145,10 +145,9 @@ body.is-menu-closing {
 .slide--footer {
   --footer-pad-block: clamp(3.2rem, 12vh, 7.6rem);
   --footer-pad-inline: clamp(2.6rem, 9vw, 8.2rem);
-  min-height: calc(
-    100vh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) -
-      (2 * var(--footer-pad-block))
-  );
+  min-height: 100vh;
+  min-height: 100svh;
+  min-height: 100dvh;
   align-items: stretch;
   justify-content: center;
   text-align: left;

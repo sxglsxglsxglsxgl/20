@@ -141,6 +141,114 @@ body.is-menu-closing {
   filter: blur(30px) brightness(0.008) saturate(0.36);
 }
 
+.slide--footer {
+  min-height: 100vh;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: left;
+  color: #f4f1eb;
+  padding: clamp(3.2rem, 12vh, 7.6rem) clamp(2.4rem, 8vw, 8rem);
+}
+
+.slide--footer::before {
+  content: "";
+  position: absolute;
+  top: calc(-1 * (env(safe-area-inset-top, 0px) + var(--slides-padding-block, 0px)));
+  right: calc(-1 * (env(safe-area-inset-right, 0px) + var(--slides-padding-inline, 0px)));
+  bottom: calc(-1 * (env(safe-area-inset-bottom, 0px) + var(--slides-padding-block, 0px)));
+  left: calc(-1 * (env(safe-area-inset-left, 0px) + var(--slides-padding-inline, 0px)));
+  background: radial-gradient(circle at 20% 20%, rgba(77, 96, 255, 0.18), transparent 48%),
+    radial-gradient(circle at 80% 16%, rgba(244, 86, 176, 0.18), transparent 54%),
+    linear-gradient(160deg, #0f1119 0%, #050608 38%, #000 100%);
+  z-index: -1;
+  box-shadow: 0 -22px 60px rgba(14, 16, 24, 0.55);
+}
+
+.footer__inner {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.6rem, 4vh, 2.8rem);
+  max-width: min(720px, 90vw);
+}
+
+.footer__eyebrow {
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  font-size: clamp(0.75rem, 1.8vw, 0.92rem);
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.56);
+  margin: 0;
+}
+
+.slide--footer p {
+  max-width: none;
+  color: rgba(255, 255, 255, 0.86);
+  text-shadow: none;
+}
+
+.footer__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: clamp(1rem, 3vw, 2rem);
+  margin-top: clamp(0.8rem, 2.6vh, 1.6rem);
+}
+
+.footer__link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: clamp(0.95rem, 2.3vw, 1.12rem);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.78);
+  text-decoration: none;
+  transition: color 220ms ease, transform 220ms ease;
+}
+
+.footer__link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.35rem;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 240ms ease;
+  opacity: 0.8;
+}
+
+.footer__link:hover,
+.footer__link:focus-visible {
+  color: #fff;
+  transform: translateY(-4px);
+}
+
+.footer__link:hover::after,
+.footer__link:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.slide--footer .line__inner {
+  font-weight: 300;
+}
+
+@media (max-width: 640px) {
+  .slide--footer {
+    padding: clamp(2.4rem, 10vh, 5.6rem) clamp(1.6rem, 7vw, 3.6rem);
+  }
+
+  .footer__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer__link {
+    justify-content: flex-start;
+  }
+}
+
 .slide p .line {
   display: inline-block;           /* чтобы переносы <br> работали как прежде */
   overflow: visible;

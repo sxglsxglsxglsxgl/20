@@ -69,6 +69,8 @@ body.is-menu-closing {
   scroll-snap-stop: always;
   overflow-y: auto;
   padding: clamp(1.5rem, 5vw, 4rem) 0;
+  z-index: 1;
+  background: #faf9f7;
 }
 
 /* Hero slide остаётся по центру */
@@ -161,6 +163,7 @@ body.is-menu-closing {
   padding-bottom: calc(var(--footer-pad-block) + env(safe-area-inset-bottom, 0px));
   padding-left: calc(var(--footer-pad-inline) + env(safe-area-inset-left, 0px));
   overflow: hidden;
+  z-index: 0;
 }
 
 .slide--footer::before {

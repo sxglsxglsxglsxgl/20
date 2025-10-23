@@ -37,6 +37,7 @@ body.is-menu-closing {
   z-index: 1;
   height: 100vh;
   overflow-y: auto;
+  overflow-x: hidden;
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
   overscroll-behavior-y: contain;
@@ -142,21 +143,34 @@ body.is-menu-closing {
 }
 
 .slide--footer {
-  min-height: 100vh;
+  --footer-pad-block: clamp(3.2rem, 12vh, 7.6rem);
+  --footer-pad-inline: clamp(2.6rem, 9vw, 8.2rem);
+  min-height: calc(
+    100vh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) -
+      (2 * var(--footer-pad-block))
+  );
   align-items: stretch;
   justify-content: center;
   text-align: left;
   color: rgba(248, 248, 248, 0.92);
-  padding: clamp(3.2rem, 12vh, 7.6rem) clamp(2.6rem, 9vw, 8.2rem);
+  margin-top: calc(-1 * (env(safe-area-inset-top, 0px) + var(--slides-padding-block)));
+  margin-right: calc(-1 * (env(safe-area-inset-right, 0px) + var(--slides-padding-inline)));
+  margin-bottom: calc(-1 * (env(safe-area-inset-bottom, 0px) + var(--slides-padding-block)));
+  margin-left: calc(-1 * (env(safe-area-inset-left, 0px) + var(--slides-padding-inline)));
+  padding-top: calc(var(--footer-pad-block) + env(safe-area-inset-top, 0px));
+  padding-right: calc(var(--footer-pad-inline) + env(safe-area-inset-right, 0px));
+  padding-bottom: calc(var(--footer-pad-block) + env(safe-area-inset-bottom, 0px));
+  padding-left: calc(var(--footer-pad-inline) + env(safe-area-inset-left, 0px));
+  overflow: hidden;
 }
 
 .slide--footer::before {
   content: "";
   position: absolute;
-  top: calc(-1 * (env(safe-area-inset-top, 0px) + var(--slides-padding-block, 0px)));
-  right: calc(-1 * (env(safe-area-inset-right, 0px) + var(--slides-padding-inline, 0px)));
-  bottom: calc(-1 * (env(safe-area-inset-bottom, 0px) + var(--slides-padding-block, 0px)));
-  left: calc(-1 * (env(safe-area-inset-left, 0px) + var(--slides-padding-inline, 0px)));
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   background: radial-gradient(circle at 15% 12%, rgba(249, 208, 94, 0.16), transparent 52%),
     radial-gradient(circle at 85% 24%, rgba(135, 176, 255, 0.14), transparent 54%),
     linear-gradient(155deg, #030304 0%, #05070d 40%, #070a15 100%);

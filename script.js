@@ -46,7 +46,7 @@ ready(() => {
 // === Line-by-Line wrapper ===
 ready(() => {
   const paragraphs = document.querySelectorAll(
-    ".slides .slide:not(:first-child) p"
+    ".slides .slide:not(:first-child):not(.slide--footer) p"
   );
 
   paragraphs.forEach((p) => {

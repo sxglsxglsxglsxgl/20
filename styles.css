@@ -39,7 +39,6 @@ body.is-menu-closing {
   overflow-y: auto;
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
-  overscroll-behavior-y: contain;
   -webkit-overflow-scrolling: touch;
   padding-block: var(--slides-padding-block);
   padding-inline: var(--slides-padding-inline);
